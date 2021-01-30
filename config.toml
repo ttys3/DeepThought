@@ -68,3 +68,7 @@ hyvor = "1967"
 
 [extra.mapbox]
 access_token = "pk.eyJ1IjoicmF0YW5zaHJlc2h0aGEiLCJhIjoiY2tla2s2NmM3MDd0ZzJzbXFtc3Y2YmU0NyJ9.0RhUnJPKbxHWw3xGPnnBlA"
+
+
+[extra.footer]
+build_status = ''
