@@ -28,6 +28,8 @@ anchors = "on"
 
 [extra]
 
+# main section for home page
+main_section = "posts"
 
 navbar_items = [
 	{ url = "$BASE_URL/", name = "Home" },

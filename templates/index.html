@@ -1,30 +1,100 @@
 {% extends 'base.html' %}
 
+
+{% block title %}
+{{ config.title }}
+{% endblock title %}
+
 {% block header %}
-<header class='hero'>
-  <div class='hero-body pb-0'>
-    <div class='container'>
-      <div class="content">
-        <h1 class='title has-text-centered is-1'>{{ section.title }}</h1>
-        <p class='subtitle has-text-centered'>{{ section.description }}</p>
-        {% if config.extra.author.avatar %}
-        <figure class="image is-flex is-justify-content-center is-align-items-center">
-          <img class="is-rounded" src='{{ config.extra.author.avatar }}' style="max-width: 192px" />
-        </figure>
-        {% endif %}
-        {{ macros:: social_links( social_config=config.extra.social) }}
-      </div>
-    </div>
-  </div>
-</header>
+<!--  nothing for index -->
 {% endblock %}
 
 {% block content %}
-<section class='section'>
-    <div class='container'>
-      <div class="content">
-        {{ section.content | safe }}
+{% set main_section = config.extra.main_section %}
+{% set section = get_section(path=main_section ~ "/_index.md") %}
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-9">
+        {% set pages = section.pages | slice(end=6) %}
+
+        {% for page in pages %}
+        <article class="box">
+          <h2 class="title">
+            <a class="link" class="link" href='{{ page.permalink }}'>
+              {{ page.title }}
+            </a>
+          </h2>
+          <p class="subtitle">{{ page.description }}</p>
+          <div class="columns is-multiline is-gapless">
+            <div class="column is-8">
+              {{ macros::page_publish_metadata(page=page) }}
+            </div>
+            <div class="column is-4 has-text-right-desktop">
+              {{ macros::page_content_metadata(page=page) }}
+            </div>
+          </div>
+          <div class="content mt-2">
+            {{ page.summary | safe }}
+            <a class="read-more" href='{{ page.permalink }}'>
+              Read More
+              <span class="icon is-small">
+                <i class="fas fa-arrow-right fa-xs"></i>
+              </span>
+            </a>
+          </div>
+          <div class="columns">
+            <div class="column">
+              {% if page.taxonomies.categories %}
+              {{ macros::render_categories(categories=page.taxonomies.categories) }}
+              {% endif %}
+            </div>
+            <div class="column has-text-right-desktop">
+              {% if page.taxonomies.tags %}
+              {{ macros::render_tags(tags=page.taxonomies.tags) }}
+              {% endif %}
+            </div>
+          </div>
+        </article>
+        {% endfor %}
       </div>
     </div>
+  </div>
 </section>
+
+{% endblock %}
+
+
+{% block pagination %}
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <nav class="level">
+          {% if section.pages | length > 6 %}
+          <div class="level-item has-text-centered">
+            <a class="button is-black is-outlined" href="{{ section.permalink | safe }}page/2">
+              <span class="icon mr-2">
+                <i class="fas fa-angle-double-right"></i>
+              </span>
+              More Pages
+            </a>
+          </div>
+          {% endif %}
+        </nav>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-8">
+        {{ macros:: social_links( social_config=config.extra.social) }}
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
 {% endblock %}
