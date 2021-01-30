@@ -60,9 +60,10 @@ twitter = "<twitter_username>"
 [extra.analytics]
 google = "<your_gtag>"
 
-# To add hyvor comments
-[extra.commenting]
-hyvor = "<your_hyvor_website_id>"
+# To add [utterances](https://utteranc.es/) comments
+[extra.comment]
+# "user/repo"
+utterances_repo = "user/repo"
 
 # To enable mapbox maps
 [extra.mapbox]

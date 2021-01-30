@@ -120,17 +120,27 @@
 {% endblock %}
 
 {% block comment %}
-{% if page.extra.comments and config.extra.commenting.hyvor %}
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
-      <div class="column is-6">
-        <div id="hyvor-talk-view"></div>
+      <div class="column is-7">
+
+        {% if page.extra.comments and config.extra.comment.utterances_repo %}
+        <script src="https://utteranc.es/client.js"
+          repo="{{ config.extra.comment.utterances_repo | safe }}"
+          issue-term="pathname"
+          label="Comment"
+          theme="preferred-color-scheme"
+          crossorigin="anonymous"
+          async>
+        </script>
+        {% endif %}
+
       </div>
     </div>
   </div>
 </section>
-{% endif %}
+
 {% endblock %}
 
 {% block custom_js %}
@@ -179,14 +189,4 @@
 </script>
 {% endif %}
 
-{% if page.extra.comments and config.extra.commenting.hyvor %}
-<script type="text/javascript">
-  var HYVOR_TALK_WEBSITE = {{ config.extra.commenting.hyvor }};
-  var HYVOR_TALK_CONFIG = {
-    url: window.location.href,
-    id: window.btoa(encodeURIComponent(escape(window.location.href)))
-  };
-</script>
-<script src="https://talk.hyvor.com/web-api/embed" type="text/javascript" async></script>
-{% endif %}
 {% endblock %}

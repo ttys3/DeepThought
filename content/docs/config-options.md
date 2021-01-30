@@ -66,10 +66,10 @@ google = "<your_gtag>"
 
 ## Hyvor Comments Setup
 
-**DeepThought** support hyvor commenting out of the box. You can configure favicon in `[extra.commenting]` of `config.toml` file. 
+**DeepThought** support hyvor comment out of the box. You can configure favicon in `[extra.comment]` of `config.toml` file. 
 
 ```toml
-[extra.commenting]
+[extra.comment]
 hyvor = "<your_website_id>"
 ```
 
